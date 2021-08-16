@@ -11,7 +11,6 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-# test1122
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
