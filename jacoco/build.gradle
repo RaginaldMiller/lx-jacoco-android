@@ -49,8 +49,8 @@ afterEvaluate {
             release(MavenPublication) {
                 //from components.release
                 groupId = 'com.github.RaginaldMiller'
-                artifactId = 'lexin-jacoco-android'
-                version = '1.0'
+                artifactId = 'lx-jacoco-android'
+                version = '0.0.1'
             }
         }
     }
