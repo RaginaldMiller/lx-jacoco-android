@@ -25,8 +25,10 @@ public class JacocoGenUtil {
             Object agent = Class.forName("org.jacoco.agent.rt.RT")
                     .getMethod("getAgent")
                     .invoke(null);
+            // api doc https://www.jacoco.org/jacoco/trunk/doc/api/org/jacoco/agent/rt/IAgent.html
             out.write((byte[]) agent.getClass().getMethod("getExecutionData", boolean.class)
                     .invoke(agent, false));
+
             Log.d(TAG,"写入"+ DEFAULT_COVERAGE_FILE_PATH + "完成!");
         } catch (Exception e) {
             Log.e(TAG, "generateEcFile: " + e.getMessage());
