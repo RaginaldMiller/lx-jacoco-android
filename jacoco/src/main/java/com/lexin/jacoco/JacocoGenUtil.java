@@ -1,5 +1,6 @@
 package com.lexin.jacoco;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
@@ -8,11 +9,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class JacocoGenUtil {
-    public static String DEFAULT_COVERAGE_FILE_PATH = "/sdcard/testjacoco.ec";
+    //public static String DEFAULT_COVERAGE_FILE_PATH = "/sdcard/testjacoco.ec";
     public static String TAG = "JacocoGenUtil";
-    public static void genJacocoData(){
+
+    public static String getFilePath(Context context){
+        File filesDir = context.getFilesDir();
+        String path = filesDir.getAbsolutePath();
+        String ecFilePath = path + File.separator + "testjacoco.ec";
+        return ecFilePath;
+    }
+    public static void genJacocoData(Context context){
         OutputStream out = null;
-        File mCoverageFilePath = new File(DEFAULT_COVERAGE_FILE_PATH);
+        File mCoverageFilePath = new File(getFilePath(context));
         try {
             if (mCoverageFilePath.exists()) {
                 Log.d(TAG, "JacocoUtils_generateEcFile: 清除旧的ec文件");
@@ -29,7 +37,7 @@ public class JacocoGenUtil {
             out.write((byte[]) agent.getClass().getMethod("getExecutionData", boolean.class)
                     .invoke(agent, false));
 
-            Log.d(TAG,"写入"+ DEFAULT_COVERAGE_FILE_PATH + "完成!");
+            Log.d(TAG,"写入"+ getFilePath(context) + "完成!");
         } catch (Exception e) {
             Log.e(TAG, "generateEcFile: " + e.getMessage());
             Log.e(TAG, e.toString());
