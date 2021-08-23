@@ -30,8 +30,11 @@ public class LXCoverageKit {
         }
         public void run() {
             String filePath = JacocoGenUtil.genJacocoData(context, map);
-            boolean upload = UploadUtil.upload(new File(filePath));
-            if(upload){
+            File file = new File(filePath);
+            Log.d(TAG,"覆盖率文件可读：" + file.canRead());
+            file.setReadable(true);
+            boolean upload = UploadUtil.upload(file);
+            if(upload && file.canRead()){
                 Log.d(TAG,"覆盖率文件上传成功！");
             }else{
                 Log.d(TAG,"覆盖率文件上传失败！");
