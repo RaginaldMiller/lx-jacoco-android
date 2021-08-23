@@ -1,26 +1,40 @@
-package com.lexin.jacoco;
+package com.lexin.jacoco.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
+import java.util.Map;
 
 public class JacocoGenUtil {
     //public static String DEFAULT_COVERAGE_FILE_PATH = "/sdcard/testjacoco.ec";
     public static String TAG = "JacocoGenUtil";
 
-    public static String getFilePath(Context context){
+    public static String getFilePath(Context context,Map<String,String> map){
+        String seria = map.get("seria");
+        String today = DateUtil.today();
+        PackageManager packageManager = context.getPackageManager();
+        String versionName = "";
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo("com.fenqile.fenqile", 0);
+             versionName = packageInfo.versionName;
+        }catch (Exception e){
+            //do nothing
+        }
         File filesDir = context.getFilesDir();
         String path = filesDir.getAbsolutePath();
-        String ecFilePath = path + File.separator + "testjacoco.ec";
+        String ecFilePath = path + File.separator + versionName + "-" + seria + "-" + today + "-testjacoco.ec";
         return ecFilePath;
     }
-    public static void genJacocoData(Context context){
+    public static String genJacocoData(Context context, Map<String,String>  map){
         OutputStream out = null;
-        File mCoverageFilePath = new File(getFilePath(context));
+        File mCoverageFilePath = new File(getFilePath(context,map));
         try {
             if (mCoverageFilePath.exists()) {
                 Log.d(TAG, "JacocoUtils_generateEcFile: 清除旧的ec文件");
@@ -37,19 +51,20 @@ public class JacocoGenUtil {
             out.write((byte[]) agent.getClass().getMethod("getExecutionData", boolean.class)
                     .invoke(agent, false));
 
-            Log.d(TAG,"写入"+ getFilePath(context) + "完成!");
+            Log.d(TAG,"写入"+ getFilePath(context,map) + "完成!");
         } catch (Exception e) {
             Log.e(TAG, "generateEcFile: " + e.getMessage());
             Log.e(TAG, e.toString());
         } finally {
             if (out == null)
-                return;
+                return getFilePath(context,map);
             try {
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return getFilePath(context,map);
     }
 
 }
