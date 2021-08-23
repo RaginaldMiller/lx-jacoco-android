@@ -23,4 +23,15 @@ public class SystemPropertiesUtil {
         return  key;
     }
 
+    public static String getDeviceSN(){
+        String serial = null;
+        try {
+            Class<?> c =Class.forName("android.os.SystemProperties");
+            Method get =c.getMethod("get", String.class);
+            serial = (String)get.invoke(c, "ro.serialno");
+        } catch (Exception e) {
+        }
+        return serial;
+    }
+
 }

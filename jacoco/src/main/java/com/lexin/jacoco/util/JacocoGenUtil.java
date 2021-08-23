@@ -19,6 +19,7 @@ public class JacocoGenUtil {
     public static String getFilePath(Context context,Map<String,String> map){
 
         String seria = SystemPropertiesUtil.get("ro.serialno");
+        String deviceSN = SystemPropertiesUtil.getDeviceSN();
 
         String today = DateUtil.today();
         PackageManager packageManager = context.getPackageManager();
