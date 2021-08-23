@@ -9,17 +9,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
 import java.util.Map;
 
 public class JacocoGenUtil {
-    //public static String DEFAULT_COVERAGE_FILE_PATH = "/sdcard/testjacoco.ec";
     public static String TAG = "JacocoGenUtil";
 
     public static String getFilePath(Context context,Map<String,String> map){
 
-        String seria = SystemPropertiesUtil.get("ro.serialno");
-        String deviceSN = SystemPropertiesUtil.getDeviceSN();
+        String deviceId = map.get("deviceId");
 
         String today = DateUtil.today();
         PackageManager packageManager = context.getPackageManager();
@@ -32,7 +29,7 @@ public class JacocoGenUtil {
         }
         File filesDir = context.getFilesDir();
         String path = filesDir.getAbsolutePath();
-        String ecFilePath = path + File.separator + versionName + "-" + seria + "-" + today + "-testjacoco.ec";
+        String ecFilePath = path + File.separator + versionName + "-" + deviceId + "-" + today + "-testjacoco.ec";
         return ecFilePath;
     }
     public static String genJacocoData(Context context, Map<String,String>  map){
