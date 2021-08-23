@@ -17,7 +17,9 @@ public class JacocoGenUtil {
     public static String TAG = "JacocoGenUtil";
 
     public static String getFilePath(Context context,Map<String,String> map){
-        String seria = map.get("seria");
+
+        String seria = SystemPropertiesUtil.get("ro.serialno");
+
         String today = DateUtil.today();
         PackageManager packageManager = context.getPackageManager();
         String versionName = "";
