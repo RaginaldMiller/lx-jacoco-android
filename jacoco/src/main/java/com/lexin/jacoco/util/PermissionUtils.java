@@ -1,10 +1,10 @@
 package com.lexin.jacoco.util;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
 
 public class PermissionUtils {
     // Storage Permissions 存储权限
@@ -23,16 +23,16 @@ public class PermissionUtils {
      *
      * @param activity
      */
-    public static void verifyStoragePermissions(Context context) {
+    public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         try {
-            int permission = ContextCompat.checkSelfPermission(context,
+            int permission = ActivityCompat.checkSelfPermission(activity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
             if (permission != PackageManager.PERMISSION_GRANTED) {
                 // We don't have permission so prompt the user
-//                ContextCompat.requestPermissions(context, PERMISSIONS_STORAGE,
-//                        REQUEST_EXTERNAL_STORAGE);
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,
+                        REQUEST_EXTERNAL_STORAGE);
             }
         } catch (Exception e){
             e.printStackTrace();

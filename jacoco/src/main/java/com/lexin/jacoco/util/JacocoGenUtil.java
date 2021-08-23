@@ -18,23 +18,27 @@ public class JacocoGenUtil {
     public static String TAG = "JacocoGenUtil";
 
     public static String getFilePath(Context context, Map<String,String> map){
-
         String deviceId = map.get("deviceId");
-
         String today = DateUtil.today();
-        PackageManager packageManager = context.getPackageManager();
-        String versionName = "";
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo("com.fenqile.fenqile", 0);
-             versionName = packageInfo.versionName;
-        }catch (Exception e){
-            //do nothing
-        }
-        File filesDir = context.getFilesDir();
+        String versionName = map.get("versionName");
+        String versionCode = map.get("versionCode");
+        String commitSha = map.get("commitSha");
+        String commitCnt = map.get("commitCnt");
+
+//        PackageManager packageManager = context.getPackageManager();
+//        String versionName = "";
+//        try {
+//            PackageInfo packageInfo = packageManager.getPackageInfo("com.fenqile.fenqile", 0);
+//             versionName = packageInfo.versionName;
+//        }catch (Exception e){
+//            //do nothing
+//        }
+
+        // File filesDir = context.getFilesDir();
+
         File cacheDir = context.getCacheDir();
-        //File dataDir = context.getDataDir();
         String path = cacheDir.getAbsolutePath();
-        String ecFilePath = path + File.separator + versionName + "-" + deviceId + "-" + today + "-testjacoco.ec";
+        String ecFilePath = path + File.separator + deviceId + "-" + versionName + "-" + commitSha + "-" + today + "-jacoco.ec";
         return ecFilePath;
     }
     public static String genJacocoData(Context context, Map<String,String>  map){
