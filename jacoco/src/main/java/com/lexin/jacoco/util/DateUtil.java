@@ -9,9 +9,8 @@ import java.util.Date;
  */
 public class DateUtil {
     public static String today() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String format = sdf.format(new Date());
-        System.out.println(format);
         return format;
     }
 }

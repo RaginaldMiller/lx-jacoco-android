@@ -1,10 +1,7 @@
 package com.lexin.jacoco;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.lexin.jacoco.util.JacocoGenUtil;
 import com.lexin.jacoco.util.UploadUtil;
@@ -22,15 +19,13 @@ import java.util.TimerTask;
 public class LXCoverageKit {
     public static final String TAG = "LXCoverageKit";
     static class MyTimerTask extends TimerTask {
-        Context context;
-        Map<String,String> map;
-        MyTimerTask(Context context, Map<String,String> map){
-            this.context = context;
-            this.map = map;
+        String ecFilePath;
+        MyTimerTask(String ecFilePath){
+            this.ecFilePath = ecFilePath;
         }
         public void run() {
-            String filePath = JacocoGenUtil.genJacocoData(context, map);
-            boolean upload = UploadUtil.upload(new File(filePath));
+            JacocoGenUtil.genJacocoData(ecFilePath);
+            boolean upload = UploadUtil.upload(new File(ecFilePath));
             if(upload){
                 Log.d(TAG,"覆盖率文件上传成功！");
             }else{
@@ -44,7 +39,12 @@ public class LXCoverageKit {
      * @param map  一些特殊信息context无法获取的或者需要额外权限的
      */
     public static void init(Context context,Map<String,String> map){
+        // 每次启动生成一个唯一的文件
+        String ecFilePath = JacocoGenUtil.createEcFile(context, map);
+        if(ecFilePath==""){
+            return;
+        }
         Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(context,map), 0, 5000);
+        timer.schedule(new MyTimerTask(ecFilePath), 0, 5000);
     }
 }

@@ -1,12 +1,7 @@
 package com.lexin.jacoco.util;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +11,20 @@ import java.util.Map;
 
 public class JacocoGenUtil {
     public static String TAG = "JacocoGenUtil";
+
+    public static String createEcFile(Context context, Map<String,String> map){
+        try {
+            String filePath = getFilePath(context, map);
+            File file = new File(filePath);
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            return filePath;
+        }catch (Exception e){
+            Log.d(TAG,"覆盖率文件创建失败！");
+            return "";
+        }
+    }
 
     public static String getFilePath(Context context, Map<String,String> map){
         String deviceId = map.get("deviceId");
@@ -41,9 +50,9 @@ public class JacocoGenUtil {
         String ecFilePath = path + File.separator + deviceId + "-" + versionName + "-" + commitSha + "-" + today + "-jacoco.ec";
         return ecFilePath;
     }
-    public static String genJacocoData(Context context, Map<String,String>  map){
+    public static void genJacocoData(String ecFilePath){
         OutputStream out = null;
-        File mCoverageFilePath = new File(getFilePath(context,map));
+        File mCoverageFilePath = new File(ecFilePath);
         try {
             if (mCoverageFilePath.exists()) {
                 Log.d(TAG, "JacocoUtils_generateEcFile: 清除旧的ec文件");
@@ -60,20 +69,18 @@ public class JacocoGenUtil {
             out.write((byte[]) agent.getClass().getMethod("getExecutionData", boolean.class)
                     .invoke(agent, false));
 
-            Log.d(TAG,"写入"+ getFilePath(context,map) + "完成!");
+            Log.d(TAG,"写入"+ ecFilePath + "完成!");
         } catch (Exception e) {
             Log.e(TAG, "generateEcFile: " + e.getMessage());
             Log.e(TAG, e.toString());
         } finally {
             if (out == null)
-                return getFilePath(context,map);
             try {
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return getFilePath(context,map);
     }
 
 }
