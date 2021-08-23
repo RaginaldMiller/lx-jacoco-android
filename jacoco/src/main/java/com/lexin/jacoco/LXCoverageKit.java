@@ -1,7 +1,10 @@
 package com.lexin.jacoco;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.lexin.jacoco.util.JacocoGenUtil;
 import com.lexin.jacoco.util.UploadUtil;

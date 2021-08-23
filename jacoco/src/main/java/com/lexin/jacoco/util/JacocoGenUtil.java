@@ -3,7 +3,10 @@ package com.lexin.jacoco.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,7 +17,7 @@ import java.util.Map;
 public class JacocoGenUtil {
     public static String TAG = "JacocoGenUtil";
 
-    public static String getFilePath(Context context,Map<String,String> map){
+    public static String getFilePath(Context context, Map<String,String> map){
 
         String deviceId = map.get("deviceId");
 
@@ -28,7 +31,9 @@ public class JacocoGenUtil {
             //do nothing
         }
         File filesDir = context.getFilesDir();
-        String path = filesDir.getAbsolutePath();
+        File cacheDir = context.getCacheDir();
+        //File dataDir = context.getDataDir();
+        String path = cacheDir.getAbsolutePath();
         String ecFilePath = path + File.separator + versionName + "-" + deviceId + "-" + today + "-testjacoco.ec";
         return ecFilePath;
     }
