@@ -1,4 +1,4 @@
-package com.lexin.jacoco.util;
+package com.lx.jacoco.util;
 
 import android.Manifest;
 import android.app.Activity;

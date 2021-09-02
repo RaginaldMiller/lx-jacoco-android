@@ -1,4 +1,4 @@
-package com.lexin.jacoco;
+package com.lx.lxjacoco;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.lexin.jacoco.test", appContext.getPackageName());
+        assertEquals("com.lexin.lx_jacoco", appContext.getPackageName());
     }
 }

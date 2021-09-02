@@ -1,4 +1,4 @@
-package com.lexin.jacoco.util;
+package com.lx.jacoco.util;
 
 import static java.lang.String.valueOf;
 

@@ -1,4 +1,4 @@
-package com.lexin.jacoco;
+package com.lx.lxjacoco;
 
 import org.junit.Test;
 

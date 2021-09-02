@@ -1,10 +1,10 @@
-package com.lexin.jacoco;
+package com.lx.jacoco;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.lexin.jacoco.util.JacocoGenUtil;
-import com.lexin.jacoco.util.UploadUtil;
+import com.lx.jacoco.util.JacocoGenUtil;
+import com.lx.jacoco.util.UploadUtil;
 
 import java.io.File;
 import java.util.Map;

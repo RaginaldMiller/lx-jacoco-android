@@ -6,7 +6,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.lexin.lxjacoco"
+        applicationId "com.lx.lxjacoco"
         minSdkVersion 17
         targetSdkVersion 31
         versionCode 1

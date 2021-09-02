@@ -1,4 +1,4 @@
-package com.lexin.jacoco.util;
+package com.lx.jacoco.util;
 
 import android.content.Context;
 import android.util.Log;
