@@ -24,7 +24,9 @@ import okhttp3.Response;
  * @date 2021/8/17
  */
 public class UploadUtil {
-    private static final String UPLOAD_URL = "http://10.1.130.173:8000/kenlu/file/upload";
+    //private static final String UPLOAD_URL = "http://10.1.130.173:8000/kenlu/file/upload";
+    // private static final String UPLOAD_URL = "http://localhost:8088/kenlu/file/upload";
+     private static final String UPLOAD_URL = "http://10.9.16.223:8888/kenlu/file/upload";
 
     public static boolean upload(final Map<String, Object> map, File file) {
         OkHttpClient client = new OkHttpClient();
@@ -102,11 +104,24 @@ public class UploadUtil {
     }
     public static void main(String[] args) {
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("version","1.0.1");
-        map.put("branch","v6.7.0");
-        File file =new File("/Users/lexin/Desktop/build.gradle");
-        upload(file);
+//        Map<String,Object> map = new HashMap<>();
+//        map.put("version","1.0.1");
+//        map.put("branch","v6.7.0");
+//        File file =new File("/Users/lexin/Desktop/build.gradle");
+//        upload(file);
+
+        File dir = new File("/Users/lexin/Desktop/test-jacocofiles/");
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if(file.isFile() && file.getName().endsWith(".ec") &&file.getName().contains("c8c97f24")){
+                upload(file);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 }
