@@ -28,6 +28,7 @@ public class JacocoGenUtil {
 
     public static String getFilePath(Context context, Map<String,String> map){
         String deviceId = map.get("deviceId");
+        deviceId = deviceId.replaceAll("-","");
         String today = DateUtil.today();
         String versionName = map.get("versionName");
         String versionCode = map.get("versionCode");
