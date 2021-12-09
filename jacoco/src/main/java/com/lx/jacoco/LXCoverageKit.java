@@ -44,12 +44,12 @@ public class LXCoverageKit {
      */
     public static void init(Context context,Map<String,String> map){
         // 每次启动生成一个唯一的文件
-//        String ecFilePath = JacocoGenUtil.createEcFile(context, map);
-//        if(ecFilePath==""){
-//            return;
-//        }
-//        Timer timer = new Timer();
-//        timer.schedule(new MyTimerTask(ecFilePath), 0, 5000);
+        String ecFilePath = JacocoGenUtil.createEcFile(context, map);
+        if(ecFilePath==""){
+            return;
+        }
+        Timer timer = new Timer();
+        timer.schedule(new MyTimerTask(ecFilePath), 0, 180000);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new MyLifecycleObserver());
 
     }

@@ -12,6 +12,8 @@ import java.util.Map;
 public class JacocoGenUtil {
     public static String TAG = "JacocoGenUtil";
 
+    static String currentEcFilePath;
+
     public static String createEcFile(Context context, Map<String,String> map){
         try {
             String filePath = getFilePath(context, map);
@@ -19,6 +21,7 @@ public class JacocoGenUtil {
             if(!file.exists()){
                 file.createNewFile();
             }
+            currentEcFilePath = filePath;
             return filePath;
         }catch (Exception e){
             Log.d(TAG,"覆盖率文件创建失败！");
@@ -48,6 +51,23 @@ public class JacocoGenUtil {
 
         File cacheDir = context.getCacheDir();
         String path = cacheDir.getAbsolutePath();
+        // 是否存在当前版本未上传的文件，上传，删除
+        String versionPrefix = deviceId + "-" + versionName + "-" + commitSha;
+        File[] files = cacheDir.listFiles();
+        for (File file : files) {
+            if(file.isFile()){
+                String fileName = file.getName();
+                if(fileName.startsWith(versionPrefix) && fileName.endsWith(".ec")){
+                    UploadUtil.upload(file);
+                    try {
+                        file.deleteOnExit();
+                    }catch (Exception e){
+
+                    }
+                }
+            }
+        }
+
         String ecFilePath = path + File.separator + deviceId + "-" + versionName + "-" + commitSha + "-" + today + "-jacoco.ec";
         return ecFilePath;
     }
