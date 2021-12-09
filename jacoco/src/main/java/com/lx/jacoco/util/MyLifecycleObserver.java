@@ -16,4 +16,9 @@ public class MyLifecycleObserver implements LifecycleObserver {
     void onBackground() {
         Log.i("LifecycleObserver", "应用退到后台");
     }
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    void onDestroy() {
+        Log.i("LifecycleObserver", "应用退到后台");
+    }
+
 }
