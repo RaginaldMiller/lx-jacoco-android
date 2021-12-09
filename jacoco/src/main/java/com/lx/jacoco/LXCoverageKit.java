@@ -3,7 +3,10 @@ package com.lx.jacoco;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.ProcessLifecycleOwner;
+
 import com.lx.jacoco.util.JacocoGenUtil;
+import com.lx.jacoco.util.MyLifecycleObserver;
 import com.lx.jacoco.util.UploadUtil;
 
 import java.io.File;
@@ -24,6 +27,7 @@ public class LXCoverageKit {
             this.ecFilePath = ecFilePath;
         }
         public void run() {
+
             JacocoGenUtil.genJacocoData(ecFilePath);
             boolean upload = UploadUtil.upload(new File(ecFilePath));
             if(upload){
@@ -40,11 +44,13 @@ public class LXCoverageKit {
      */
     public static void init(Context context,Map<String,String> map){
         // 每次启动生成一个唯一的文件
-        String ecFilePath = JacocoGenUtil.createEcFile(context, map);
-        if(ecFilePath==""){
-            return;
-        }
-        Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(ecFilePath), 0, 5000);
+//        String ecFilePath = JacocoGenUtil.createEcFile(context, map);
+//        if(ecFilePath==""){
+//            return;
+//        }
+//        Timer timer = new Timer();
+//        timer.schedule(new MyTimerTask(ecFilePath), 0, 5000);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(new MyLifecycleObserver());
+
     }
 }

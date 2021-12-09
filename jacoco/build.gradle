@@ -52,6 +52,8 @@ dependencies {
     api 'com.trello:rxlifecycle:1.0'
     api 'com.trello:rxlifecycle-components:1.0'
 
+    implementation  "androidx.lifecycle:lifecycle-process:2.2.0"
+
 }
 
 afterEvaluate {
