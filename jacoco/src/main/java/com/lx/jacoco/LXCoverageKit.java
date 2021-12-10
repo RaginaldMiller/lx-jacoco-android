@@ -48,8 +48,8 @@ public class LXCoverageKit {
         if(ecFilePath==""){
             return;
         }
-        Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(ecFilePath), 0, 180000);
+        //Timer timer = new Timer();
+        //timer.schedule(new MyTimerTask(ecFilePath), 0, 180000);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new MyLifecycleObserver());
 
     }
